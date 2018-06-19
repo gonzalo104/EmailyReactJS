@@ -3,7 +3,7 @@
    @email             : gonzalozavalamendoza@gmail.com
  * @Date              : 2018-06-14 16: 09: 17
  * @Last Modified by  : Gonzalo Zavala Mendoza
- * @Last Modified time: 2018-06-14 19: 50: 30
+ * @Last Modified time: 2018-06-19 17: 23: 13
  */
 const passport       = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
@@ -30,8 +30,10 @@ passport.use(
     new GoogleStrategy({
     clientID    : keys.googleClientID,
     clientSecret: keys.googleClientSecret,
-    callbackURL : '/auth/google/callback'
-  }, (accessToken, refreshToken, profile, done) => {
+    callbackURL : '/auth/google/callback',
+    proxy       : true
+  }, 
+    (accessToken, refreshToken, profile, done) => {
 
       const user = User.findOne({googleId: profile.id})
                   .then((existingUser)=>{
