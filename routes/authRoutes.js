@@ -3,7 +3,7 @@
    @email             : gonzalozavalamendoza@gmail.com
  * @Date              : 2018-06-14 16: 09: 11
  * @Last Modified by  : Gonzalo Zavala Mendoza
- * @Last Modified time: 2018-06-19 12: 02: 34
+ * @Last Modified time: 2018-06-20 18: 59: 29
  */
 
 const passport = require('passport');
@@ -14,14 +14,15 @@ module.exports = (app) => {
         scope: ['profile','email']
     }));
 
-    app.get('/auth/google/callback', passport.authenticate('google'));
-
-
-    app.get('/api/logout',(req, resp) =>{
-        resp.send(req.user);
-        req.logout();
-        
+    app.get('/auth/google/callback', passport.authenticate('google'), (req,res) => {
+        res.redirect('/surveys');
     });
+
+
+    app.get('/api/logout', (req, res) => {
+        req.logout();
+        res.redirect('/');
+      });
 
     app.get('/api/current_user', (req,res) => {
             res.send(req.user);
