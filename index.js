@@ -3,7 +3,7 @@
    @email             : gonzalozavalamendoza@gmail.com
  * @Date              : 2018-06-14 11: 26: 20
  * @Last Modified by  : Gonzalo Zavala Mendoza
- * @Last Modified time: 2018-06-22 10: 52: 21
+ * @Last Modified time: 2018-06-22 12: 29: 30
  */
 const express       = require('express');
 const mongoose      = require('mongoose');
@@ -40,14 +40,16 @@ require('./routes/authRoutes')(app);
 require('./routes/billingRoutes')(app);
 
 if (process.env.NODE_ENV === 'production') {
-
+  // Express will serve up production assets
+  // like our main.js file, or main.css file!
   app.use(express.static('client/build'));
-  const path = require('path');
-  
-  app.get('*', (req,res) => {
-    res.sendFile(path.resolve(__dirname,'client','build','index.html'));
-  });
 
+  // Express will serve up the index.html file
+  // if it doesn't recognize the route
+  const path = require('path');
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
 }
 
 const PORT = process.env.PORT || 5000;
