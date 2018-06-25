@@ -3,7 +3,7 @@
    @email             : gonzalozavalamendoza@gmail.com
  * @Date              : 2018-06-14 11: 26: 20
  * @Last Modified by  : Gonzalo Zavala Mendoza
- * @Last Modified time: 2018-06-22 12: 29: 30
+ * @Last Modified time: 2018-06-22 15: 39: 13
  */
 const express       = require('express');
 const mongoose      = require('mongoose');
@@ -12,6 +12,7 @@ const passport      = require('passport');
 const bodyParser    = require('body-parser');
 const keys          = require('./config/keys');
 require('./models/User');
+require('./models/Survey');
 require('./services/passport');
 
 
@@ -38,6 +39,8 @@ app.use(passport.session());
 
 require('./routes/authRoutes')(app);
 require('./routes/billingRoutes')(app);
+require('./routes/surveyRoutes')(app);
+
 
 if (process.env.NODE_ENV === 'production') {
   // Express will serve up production assets
